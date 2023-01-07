@@ -35,7 +35,7 @@ public class GameProcessor {
     }
 
     public static void appendColoredText(TextView tv, String text, boolean br) {
-        String sourceString = "<b><span style=\"color:#F6200EE;\">" + text + "</span></b>" + (br ? "<br>" : "");
+        String sourceString = "<b><span style=\"color:#F018786;\">" + text + "</span></b>" + (br ? "<br>" : "");
         tv.append(Html.fromHtml(sourceString));
     }
 
@@ -121,14 +121,14 @@ public class GameProcessor {
             // МЕДИТАЦИЯ
             meditation += 1;
             if (meditation == 5) {
-                sb.append("Поздравляем! Вы стали прислужником Н'Зота!").append("\r\n");
-                sb.append("Вы находитесь в самом мрачном овраге на свете! А запах... Бррр! Вы опирается на сучковатую дубину, похожую на небольшой ствол дерева. А перед Вами стоит робкий путник с сумкой через плечо...").append("\r\n");
+                sb.append("Вы находитесь в самом мрачном овраге на свете! А запах... Бррр! Вы опираетесь на сучковатую дубину, похожую на небольшой ствол дерева, а перед Вами стоит робкий путник с сумкой через плечо...").append("\r\n");
                 sb.append("Al'ksh syq iir awan? Iilth sythn aqev… aqev… aqev…").append("\r\n");
+                sb.append("Поздравляем! Получено скрытое достижение \"Служитель Н'Зота!\"").append("\r\n");
                 endGame = true;
                 playSound(R.raw.win, false);
                 return sb.toString();
             } else {
-                sb.append("Вы уселись в позу лотоса и провели время в приятной медитаци. Отдохнули что надо, но здоровья это не добавило...").append("\r\n");
+                sb.append("Вы взываете к Древним богам! Кто-то шепчет: Iilth ma paf'qi'ag sk'halahs... Вы чувствуете, как Ваше тело наполняется силой, но за нее нужно платить...").append("\r\n");
                 st += 20;
                 hp -= 10;
             }

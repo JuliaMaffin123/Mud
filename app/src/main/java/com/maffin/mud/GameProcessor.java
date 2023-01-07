@@ -1,5 +1,7 @@
 package com.maffin.mud;
 
+import android.content.Context;
+import android.media.MediaPlayer;
 import android.text.Html;
 import android.widget.TextView;
 
@@ -8,6 +10,9 @@ public class GameProcessor {
     public static final String STOP = "стоп";
     public static final String LOOK = "смотреть";
     public static final String FAIL = "YOU DIED";
+
+    private Context context;
+    private MediaPlayer mp;
 
     private int hp = 100;                   // Здоровье
     private int st = 100;                   // Стамина
@@ -18,6 +23,11 @@ public class GameProcessor {
     private int log = -1;                   // Где сейчас бревно
     private String command = LOOK;          // Текущая команда
     private boolean endGame = false;        // Признак завершения игры
+
+    public GameProcessor(Context context) {
+        this.context = context;
+    }
+
 
     public static void appendText(TextView tv, String text) {
         tv.append(text);
@@ -44,6 +54,14 @@ public class GameProcessor {
         appendText(tv, getGreetings());
         appendText(tv, getHelp());
         appendColoredText(tv, getState(), false);
+        playSound(R.raw.forest, true);
+    }
+
+    public void endGame() {
+        endGame = true;
+        if (mp != null) {
+            mp.stop();
+        }
     }
 
     public boolean isEndGame() {
@@ -84,7 +102,7 @@ public class GameProcessor {
         String response = ":--- " + command + "\r\n";
         appendText(tv, next(command));
         // 3. Выводим ХП и СТ
-        if(!STOP.equals(command)) {
+        if(!isEndGame()) {
             appendColoredText(tv, getState(), false);
         }
     }
@@ -95,7 +113,7 @@ public class GameProcessor {
         if ("?".equals(command) || command.startsWith("по")) {
             return getHelp();
         } else if(STOP.equals(command)) {
-            endGame = true;
+            endGame();
             return "Спасибо за участие. Приходите еще раз с друзьями!\r\n";
         } else if(command.startsWith("ис")) {
             // ИСПОЛЬЗОВАТЬ
@@ -330,7 +348,7 @@ public class GameProcessor {
                     }
                 } else if (obj.startsWith("в")) {
                     if (room == 0) {
-                        sb.append("В зарослях винеется небольшой просвет и начало тропинки.").append("\r\n");
+                        sb.append("В зарослях виднеется небольшой просвет и начало тропинки.").append("\r\n");
                         sb.append("Будьте острожны и смотрите под ноги, тропинка выглядит сырой.").append("\r\n");
                     }
                     if (room == 1) {
@@ -476,8 +494,9 @@ public class GameProcessor {
                 room = 1;
                 st -= 1;
                 hp -= 10;
+                playSound(R.raw.nzoth, true);
                 return next(LOOK);
-            } else  if (room == 1) {
+            } else if (room == 1) {
                 room = 3;
                 if (log == 0) {
                     st -= 5;
@@ -504,6 +523,7 @@ public class GameProcessor {
                 sb.append("...").append("\r\n");
                 endGame = true;
                 sb.append(FAIL).append("\r\n");
+                playSound(R.raw.died, false);
             }
         } else {
             sb.append("Я вас не понимаю. Попробуйте получить справку: ? или помощь.").append("\r\n");
@@ -520,6 +540,7 @@ public class GameProcessor {
             sb.append("...").append("\r\n");
             endGame = true;
             sb.append(FAIL).append("\r\n");
+            playSound(R.raw.died, false);
         }
         return sb.toString();
     }
@@ -532,5 +553,18 @@ public class GameProcessor {
         if (stone == 0) {
             stone = room;
         }
+    }
+
+    private void playSound(int music, boolean repeat) {
+        new Thread() {
+            public void run() {
+                if (mp != null) {
+                    mp.stop();
+                }
+                mp = MediaPlayer.create(context, music);
+                mp.setLooping(repeat);
+                mp.start();
+            }
+        }.start();
     }
 }

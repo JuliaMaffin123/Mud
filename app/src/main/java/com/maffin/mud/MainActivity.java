@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        game = new GameProcessor();
+        game = new GameProcessor(this);
         startGame();
     }
 

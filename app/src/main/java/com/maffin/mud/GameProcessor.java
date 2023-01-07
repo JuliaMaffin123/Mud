@@ -23,6 +23,7 @@ public class GameProcessor {
     private int log = -1;                   // Где сейчас бревно
     private String command = LOOK;          // Текущая команда
     private boolean endGame = false;        // Признак завершения игры
+    private int meditation = 0;             // Число непрерывных медитаций
 
     public GameProcessor(Context context) {
         this.context = context;
@@ -47,8 +48,9 @@ public class GameProcessor {
         prev = 0;                   // Предыдущая комната
         stone = 2;                  // Где сейчас камень
         log = -1;                   // Где сейчас бревно
-        command = LOOK;       // Текущая команда
+        command = LOOK;             // Текущая команда
         endGame = false;            // Признак завершения игры
+
         // Отрисовка приветствия
         tv.setText("");
         appendText(tv, getGreetings());
@@ -90,7 +92,8 @@ public class GameProcessor {
         sb.append("| смотреть, выходы, стоп, взять,   |").append("\r\n");
         sb.append("| инвентарь, использовать,         |").append("\r\n");
         sb.append("| север, юг, запад, восток,        |").append("\r\n");
-        sb.append("| помощь, ?, сказать, кричать      |").append("\r\n");
+        sb.append("| помощь, ?, сказать, кричать,     |").append("\r\n");
+        sb.append("| медитация                        |").append("\r\n");
         sb.append("====================================").append("\r\n");
         return sb.toString();
     }
@@ -99,7 +102,6 @@ public class GameProcessor {
         // 1. Выводим команду
         appendColoredText(tv, command, true);
         // 2. Обрабатываем команду
-        String response = ":--- " + command + "\r\n";
         appendText(tv, next(command));
         // 3. Выводим ХП и СТ
         if(!isEndGame()) {
@@ -115,8 +117,24 @@ public class GameProcessor {
         } else if(STOP.equals(command)) {
             endGame();
             return "Спасибо за участие. Приходите еще раз с друзьями!\r\n";
+        } else if(command.startsWith("ме")) {
+            // МЕДИТАЦИЯ
+            meditation += 1;
+            if (meditation == 5) {
+                sb.append("Поздравляем! Вы стали прислужником Н'Зота!").append("\r\n");
+                sb.append("Вы находитесь в самом мрачном овраге на свете! А запах... Бррр! Вы опирается на сучковатую дубину, похожую на небольшой ствол дерева. А перед Вами стоит робкий путник с сумкой через плечо...").append("\r\n");
+                sb.append("Al'ksh syq iir awan? Iilth sythn aqev… aqev… aqev…").append("\r\n");
+                endGame = true;
+                playSound(R.raw.win, false);
+                return sb.toString();
+            } else {
+                sb.append("Вы уселись в позу лотоса и провели время в приятной медитаци. Отдохнули что надо, но здоровья это не добавило...").append("\r\n");
+                st += 20;
+                hp -= 10;
+            }
         } else if(command.startsWith("ис")) {
             // ИСПОЛЬЗОВАТЬ
+            meditation = 0;
             String[] sub = command.split(" ");
             if (sub.length == 1) {
                 return "Вы совершаете непонятные пассы руками.\r\n";
@@ -145,6 +163,7 @@ public class GameProcessor {
                         endGame = true;
                         sb.append("БИНГО! Вы выбрались из оврага и покинули ЗАЧАРОВАННЫЙ лес!").append("\r\n").append("\r\n");
                         sb.append("Спасибо за участие. Приходите еще раз с друзьями!").append("\r\n");
+                        playSound(R.raw.win, false);
                         return sb.toString();
                     } else {
                         sb.append("К сожалению Вам не хватило совсем чуть чуть.").append("\r\n");
@@ -167,7 +186,6 @@ public class GameProcessor {
                         } else {
                             sb.append("Вы с большим удовольствием съедаете бутер.").append("\r\n");
                             hp += 20;
-                            st += 20;
                         }
                     }
                 } else {
@@ -176,6 +194,7 @@ public class GameProcessor {
             }
         } else if (command.startsWith("вз")) {
             // ВЗЯТЬ
+            meditation = 0;
             String[] sub = command.split(" ");
             if (sub.length == 1) {
                 return "Вы бесмысленно хватаете руками воздух.\r\n";
@@ -195,6 +214,7 @@ public class GameProcessor {
             }
         } else if (command.startsWith("ск")) {
             // СКАЗАТЬ
+            meditation = 0;
             String[] sub = command.split(" ");
             if (sub.length == 1) {
                 return "Вы что-то бормочите себе под нос...\r\n";
@@ -209,6 +229,7 @@ public class GameProcessor {
             }
         } else if (command.startsWith("кр")) {
             // КРИЧАТЬ
+            meditation = 0;
             String[] sub = command.split(" ");
             if (sub.length == 1) {
                 return "Вы издаёте пронзительный крик! Тарзан бы позавидовал Вам!\r\n";
@@ -397,6 +418,7 @@ public class GameProcessor {
             }
         } else if (command.startsWith("с")) {
             // СЕВЕР
+            meditation = 0;
             prev = room;
             if (room == 0) {
                 st -= 2;
@@ -426,6 +448,7 @@ public class GameProcessor {
             }
         } else if (command.startsWith("ю")) {
             // ЮГ
+            meditation = 0;
             prev = room;
             if (room == 0) {
                 st -= 2;
@@ -455,6 +478,7 @@ public class GameProcessor {
             }
         } else if (command.startsWith("з")) {
             // ЗАПАД
+            meditation = 0;
             prev = room;
             if (room == 0) {
                 st -= 2;
@@ -489,6 +513,7 @@ public class GameProcessor {
             }
         } else if (command.startsWith("в")) {
             // ВОСТОК
+            meditation = 0;
             prev = room;
             if (room == 0) {
                 room = 1;

@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">Mud</string>
+    <string name="app_name">MUD - Беспределье :)</string>
+    <string name="action_start">Новая игра</string>
+    <string name="hint">Введите действие</string>
+    <string name="btnSendDescription">Отправить</string>
+    <string name="emptyInput">Введите действие</string>
 </resources>

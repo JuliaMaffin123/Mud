@@ -134,7 +134,7 @@ public class GameProcessor {
                     sb.append("Команда: смотреть").append("\r\n");
                     sb.append("Вы можете смотреть по сторонам или на что-то конкретное. Например:").append("\r\n");
                     sb.append("   см -> осмотреться вокруг").append("\r\n");
-                    sb.append("   см ю -> посмотрет на ЮГ").append("\r\n");
+                    sb.append("   см ю -> посмотреть на ЮГ").append("\r\n");
                     sb.append("   см су -> осмотреть сумку").append("\r\n");
                 } else if (obj.startsWith("вы")) {
                     // вы - выходы
@@ -308,7 +308,7 @@ public class GameProcessor {
             meditation = 0;
             String[] sub = command.split(" ");
             if (sub.length == 1) {
-                return "Вы что-то бормочите себе под нос...\r\n";
+                return "Вы что-то бормочете себе под нос...\r\n";
             } else {
                 String obj = command.substring(sub[0].length());
                 sb.append("Вы говорите: ").append(obj).append("\r\n");
@@ -348,7 +348,7 @@ public class GameProcessor {
                 } else if (room == 1) {
                     if (prev == 0) {
                         sb.append("Небесный горошек! Какой же Вы неосторожный!").append("\r\n");
-                        sb.append("Нога подскользнулась на какой-то непонятной субстанции и вы съехали в овраг!").append("\r\n");
+                        sb.append("Нога поскользнулась на какой-то непонятной субстанции и вы съехали в овраг!").append("\r\n");
                     }
                     sb.append("Здесь сыро, темно и отчетливо попахивает опасностью!").append("\r\n");
                     sb.append("Склоны оврага выглядят неприступными.").append("\r\n");

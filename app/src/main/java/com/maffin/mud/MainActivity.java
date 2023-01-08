@@ -13,11 +13,15 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+/**
+ * Главная активность приложения.
+ */
 public class MainActivity extends AppCompatActivity {
 
-    private GameProcessor game;
-    private boolean mute = false;
+    private GameProcessor game;     // Движок игры
+    private boolean mute = false;   // Текущая настройка Вкл/выкл звук
 
+    // Название настроек приложения
     private static final String APP_PREFERENCES_MUTE = "mute";
     private static final String APP_PREFERENCES_MUSIC = "music";
 
@@ -109,6 +113,9 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Запуск игры.
+     */
     private void startGame() {
         final TextView textView = findViewById(R.id.textView);
         final TextInputEditText inpSend = findViewById(R.id.inpSend);

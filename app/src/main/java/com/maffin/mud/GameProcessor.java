@@ -5,6 +5,10 @@ import android.media.MediaPlayer;
 import android.text.Html;
 import android.widget.TextView;
 
+/**
+ * Движок игры.
+ * Хранит текущее положение игрока, его характеристики и инвентарь.
+ */
 public class GameProcessor {
 
     public static final String STOP = "стоп";
@@ -32,16 +36,30 @@ public class GameProcessor {
         this.context = context;
     }
 
-
-    public static void appendText(TextView tv, String text) {
+    /**
+     * Добавляет игровой текст основным цветом.
+     * @param tv    TextView, в который будет выводиться текст игровых сообщений
+     * @param text  текст
+     */
+    private void appendText(TextView tv, String text) {
         tv.append(text);
     }
 
-    public static void appendColoredText(TextView tv, String text, boolean br) {
+    /**
+     * Добавляет текст действия и характеристики игрока особым цветом.
+     * @param tv    TextView, в который будет выводиться текст игровых сообщений
+     * @param text  текст
+     * @param br    нужен ли перенос строки
+     */
+    private void appendColoredText(TextView tv, String text, boolean br) {
         String sourceString = "<b><span style=\"color:#F018786;\">" + text + "</span></b>" + (br ? "<br>" : "");
         tv.append(Html.fromHtml(sourceString));
     }
 
+    /**
+     * Запуск игры.
+     * @param tv    TextView, в который будет выводиться текст игровых сообщений
+     */
     public void startGame(TextView tv) {
         // Сброс значений
         hp = 100;                   // Здоровье
@@ -62,22 +80,38 @@ public class GameProcessor {
         playSound(R.raw.forest, true);
     }
 
+    /**
+     * Завершение игры.
+     */
     public void endGame() {
         endGame = true;
+        // Останавливаем воспроизведение звуков
         if (mp != null) {
             mp.stop();
         }
     }
 
+    /**
+     * Возвращает, завершена ли игра.
+     * @return  true/false
+     */
     public boolean isEndGame() {
         return endGame;
     }
 
-    public String getState() {
+    /**
+     * Возвращает строку с описанием характеристик игрока.
+     * @return  строка
+     */
+    private String getState() {
         return "[" + hp + "хп " + st + "ст]: ";
     }
 
-    public String getGreetings() {
+    /**
+     * Возвращает блок приветствия для начала игры.
+     * @return  строка
+     */
+    private String getGreetings() {
         StringBuilder sb = new StringBuilder();
         sb.append("---=== Добро пожаловать в MUD ===---").append("\r\n");
         sb.append("В нашей игре Вы можете совершать различные действия из списка команд. Попробуйте выбраться из ЗАЧАРОВАННОГО леса.").append("\r\n");
@@ -87,6 +121,11 @@ public class GameProcessor {
         return sb.toString();
     }
 
+    /**
+     * Возвращает подсказку.
+     * @param full  признак, нужна полная или сокращенная подсказка
+     * @return  строка
+     */
     public String getHelp(boolean full) {
         StringBuilder sb = new StringBuilder();
         sb.append("====================================").append("\r\n");
@@ -109,17 +148,27 @@ public class GameProcessor {
         return sb.toString();
     }
 
+    /**
+     * Обработка очередной команды игрока.
+     * @param tv        TextView, в который будет выводиться текст игровых сообщений
+     * @param command   комманда
+     */
     public void process(TextView tv, String command) {
         // 1. Выводим команду
         appendColoredText(tv, command, true);
         // 2. Обрабатываем команду
         appendText(tv, next(command));
         // 3. Выводим ХП и СТ
-        if(!isEndGame()) {
+        if (!isEndGame()) {
             appendColoredText(tv, getState(), false);
         }
     }
 
+    /**
+     * Формирует игровой ответ на комманду.
+     * @param command   комманда
+     * @return  строка
+     */
     private String next(String command) {
         StringBuilder sb = new StringBuilder();
         // Обработка команд
@@ -661,6 +710,9 @@ public class GameProcessor {
         return sb.toString();
     }
 
+    /**
+     * Изменяет характеристики вещей (камень, бревно) при выпадении из инвентаря.
+     */
     private void drop() {
         // Бросить все
         if (log == 0) {
@@ -671,6 +723,11 @@ public class GameProcessor {
         }
     }
 
+    /**
+     * Запускает воспроизведение музыки.
+     * @param musicId   ID ресурса
+     * @param repeat    признак, надо ли повторять бесконечно
+     */
     private void playSound(int musicId, boolean repeat) {
         new Thread() {
             public void run() {
@@ -691,6 +748,10 @@ public class GameProcessor {
         }.start();
     }
 
+    /**
+     * Вкл/выкл возпроизведение звуков в приложении.
+     * @param mute  признак, вкл/выкл звук
+     */
     public void mute(boolean mute) {
         this.mute = mute;
         new Thread() {
@@ -711,12 +772,20 @@ public class GameProcessor {
         }.start();
     }
 
+    /**
+     * Запоминает текущий, воспроизводимый звук.
+     * @param musicId
+     */
     public void setMusic(int musicId) {
         if (musicId != 0) {
             music = musicId;
         }
     }
 
+    /**
+     * Возвращает текущий, воспроизводимый звук.
+     * @return
+     */
     public int getMusic() {
         return music;
     }

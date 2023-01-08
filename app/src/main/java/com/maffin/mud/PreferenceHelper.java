@@ -3,18 +3,21 @@ package com.maffin.mud;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+/**
+ * Управление настройками приложения
+ */
 public class PreferenceHelper {
 
     public static SharedPreferences prefs;
 
-    // Preference name for app.
+    // Имя файла с настройками
     public static final String APP_PREFERENCE_NAME = "app_preference_name";
 
     /**
-     * Set boolean value to shared-preference.
+     * Устанавливает boolean настройку.
      *
-     * @param key   Key for store boolean value to shared-preference.
-     * @param value Boolean value to be stored in shared-preference for given key.
+     * @param key   ключ для сохранения boolean значения в shared-preference
+     * @param value boolean значение для сохранения в shared-preference по ключу
      */
     public static void putBoolean(Context context, String key, boolean value) {
         prefs = context.getSharedPreferences(APP_PREFERENCE_NAME, Context.MODE_PRIVATE);
@@ -24,12 +27,11 @@ public class PreferenceHelper {
     }
 
     /**
-     * Get boolean value from shared-preference.
+     * Возвращает boolean знаяение из shared-preference.
      *
-     * @param key          Key for getting boolean value from shared-preference.
-     * @param defaultValue Default boolean value that is returned if given key is not found in
-     *                     preference.
-     * @return string      Boolean value from shared-preference for given key.
+     * @param key          ключ для получения boolean значения в shared-preference
+     * @param defaultValue boolean значение по умолчанию, которое вернется, если ключ не будет найден в настройках
+     * @return boolean     значение из shared-preference по ключу
      */
     public static boolean getBoolean(Context context,String key, boolean defaultValue) {
         prefs = context.getSharedPreferences(APP_PREFERENCE_NAME, Context.MODE_PRIVATE);
@@ -38,10 +40,10 @@ public class PreferenceHelper {
     }
 
     /**
-     * Set boolean value to shared-preference.
+     * Устанавливает int настройку.
      *
-     * @param key   Key for store boolean value to shared-preference.
-     * @param value Int value to be stored in shared-preference for given key.
+     * @param key   ключ для сохранения int значения в shared-preference
+     * @param value int значение для сохранения в shared-preference по ключу
      */
     public static void putInt(Context context, String key, int value) {
         prefs = context.getSharedPreferences(APP_PREFERENCE_NAME, Context.MODE_PRIVATE);
@@ -51,12 +53,11 @@ public class PreferenceHelper {
     }
 
     /**
-     * Get int value from shared-preference.
+     * Возвращает int знаяение из shared-preference.
      *
-     * @param key          Key for getting boolean value from shared-preference.
-     * @param defaultValue Default int value that is returned if given key is not found in
-     *                     preference.
-     * @return string      Int value from shared-preference for given key.
+     * @param key          ключ для получения int значения в shared-preference
+     * @param defaultValue int значение по умолчанию, которое вернется, если ключ не будет найден в настройках
+     * @return int         значение из shared-preference по ключу
      */
     public static int getInt(Context context,String key, int defaultValue) {
         prefs = context.getSharedPreferences(APP_PREFERENCE_NAME, Context.MODE_PRIVATE);

@@ -14,6 +14,8 @@ public class GameProcessor {
     private Context context;
     private MediaPlayer mp;
 
+    private int music = 0;                  // Текущая музыка
+
     private int hp = 100;                   // Здоровье
     private int st = 100;                   // Стамина
     private int booter = 3;                 // Бутеры
@@ -24,6 +26,7 @@ public class GameProcessor {
     private String command = LOOK;          // Текущая команда
     private boolean endGame = false;        // Признак завершения игры
     private int meditation = 0;             // Число непрерывных медитаций
+    private boolean mute = true;            // Режим без звука
 
     public GameProcessor(Context context) {
         this.context = context;
@@ -668,16 +671,54 @@ public class GameProcessor {
         }
     }
 
-    private void playSound(int music, boolean repeat) {
+    private void playSound(int musicId, boolean repeat) {
         new Thread() {
             public void run() {
-                if (mp != null) {
+                // Если до этого плеер был инициирован, стопнем музыку
+                if (mp != null && mp.isPlaying()) {
                     mp.stop();
                 }
+                // Заряжаем в плеер новую мелодию
+                setMusic(musicId);
                 mp = MediaPlayer.create(context, music);
+                // Ставим мелодию на повтор
                 mp.setLooping(repeat);
-                mp.start();
+                // Если режим не беззвучный - проигрываем сразу
+                if (!mute) {
+                    mp.start();
+                }
             }
         }.start();
     }
+
+    public void mute(boolean mute) {
+        this.mute = mute;
+        new Thread() {
+            public void run() {
+                if (mp != null) {
+                    if (mute) {
+                        if (mp.isPlaying()) {
+                            mp.stop();
+                        }
+                    } else {
+                        if (music != 0) {
+                            mp = MediaPlayer.create(context, music);
+                            mp.start();
+                        }
+                    }
+                }
+            }
+        }.start();
+    }
+
+    public void setMusic(int musicId) {
+        if (musicId != 0) {
+            music = musicId;
+        }
+    }
+
+    public int getMusic() {
+        return music;
+    }
+
 }

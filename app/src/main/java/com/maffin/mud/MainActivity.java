@@ -1,7 +1,5 @@
 package com.maffin.mud;
 
-import static com.maffin.mud.GameProcessor.STOP;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 
@@ -24,9 +22,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final TextView textView = (TextView) findViewById(R.id.textView);
-        final TextInputEditText inpSend = (TextInputEditText) findViewById(R.id.inpSend);
-        final AppCompatImageButton btnSend = (AppCompatImageButton) findViewById(R.id.btnSend);
+        final TextView textView = findViewById(R.id.textView);
+        final TextInputEditText inpSend = findViewById(R.id.inpSend);
+        final AppCompatImageButton btnSend = findViewById(R.id.btnSend);
 
         textView.setMovementMethod(new ScrollingMovementMethod());
 
@@ -67,9 +65,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startGame() {
-        final TextView textView = (TextView) findViewById(R.id.textView);
-        final TextInputEditText inpSend = (TextInputEditText) findViewById(R.id.inpSend);
-        final AppCompatImageButton btnSend = (AppCompatImageButton) findViewById(R.id.btnSend);
+        final TextView textView = findViewById(R.id.textView);
+        final TextInputEditText inpSend = findViewById(R.id.inpSend);
+        final AppCompatImageButton btnSend = findViewById(R.id.btnSend);
 
         // Сброс состояния и очистка экрана
         game.startGame(textView);

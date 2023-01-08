@@ -123,7 +123,7 @@ public class GameProcessor {
     private String next(String command) {
         StringBuilder sb = new StringBuilder();
         // Обработка команд
-        if ("?".equals(command) || command.startsWith("по")) {
+        if (command.startsWith("?") || command.startsWith("по")) {
             String[] sub = command.split(" ");
             if (sub.length == 1) {
                 return getHelp(true);
@@ -133,9 +133,9 @@ public class GameProcessor {
                     // см - смотреть
                     sb.append("Команда: смотреть").append("\r\n");
                     sb.append("Вы можете смотреть по сторонам или на что-то конкретное. Например:").append("\r\n");
-                    sb.append("   см - осмотреться вокруг").append("\r\n");
-                    sb.append("   см ю - посмотрет на ЮГ").append("\r\n");
-                    sb.append("   см су - осмотреть сумку").append("\r\n");
+                    sb.append("   см -> осмотреться вокруг").append("\r\n");
+                    sb.append("   см ю -> посмотрет на ЮГ").append("\r\n");
+                    sb.append("   см су -> осмотреть сумку").append("\r\n");
                 } else if (obj.startsWith("вы")) {
                     // вы - выходы
                     sb.append("Команда: выходы").append("\r\n");
@@ -144,62 +144,62 @@ public class GameProcessor {
                     // ст - стоп
                     sb.append("Команда: стоп").append("\r\n");
                     sb.append("Останавливает игру. Это единственная команда, которую надо набирать полностью. Нельзя же так легко сдаваться!").append("\r\n");
-                } if (obj.startsWith("вз")) {
+                } else if (obj.startsWith("вз")) {
                     // вз - взять
                     sb.append("Команда: взять").append("\r\n");
                     sb.append("Позволяет поднять с земли предметы (помните! некоторые из них могут быть тяжелыми). Например:").append("\r\n");
-                    sb.append("   взять ка - поднять камень").append("\r\n");
-                } if (obj.startsWith("ин")) {
+                    sb.append("   взять ка -> поднять камень").append("\r\n");
+                } else if (obj.startsWith("ин")) {
                     // ин - инвентарь
                     sb.append("Команда: инвентарь").append("\r\n");
                     sb.append("Показывает, что Вы несете в руках.").append("\r\n");
-                } if (obj.startsWith("ис")) {
+                } else if (obj.startsWith("ис")) {
                     // ис - использовать
                     sb.append("Команда: использовать").append("\r\n");
                     sb.append("Предметы, которые Вы носите в инвентаре можно использовать. Например:").append("\r\n");
-                    sb.append("   ис ка - бросить камень").append("\r\n");
-                } if (obj.startsWith("с")) {
-                    // с - север
-                    sb.append("Команда: север").append("\r\n");
-                    sb.append("Двигаться на СЕВЕР, если это возможно.").append("\r\n");
-                } if (obj.startsWith("ю")) {
-                    // ю - юг
-                    sb.append("Команда: юг").append("\r\n");
-                    sb.append("Двигаться на ЮГ, если это возможно.").append("\r\n");
-                } if (obj.startsWith("з")) {
-                    // з - запад
-                    sb.append("Команда: запад").append("\r\n");
-                    sb.append("Двигаться на ЗАПАД, если это возможно.").append("\r\n");
-                } if (obj.startsWith("в")) {
-                    // в - восток
-                    sb.append("Команда: восток").append("\r\n");
-                    sb.append("Двигаться на ВОСТОК, если это возможно.").append("\r\n");
-                } if (obj.startsWith("по")) {
-                    // по - помощь
-                    sb.append("Команда: помощь").append("\r\n");
-                    sb.append("Выводит подсказки по командам. Например:").append("\r\n");
-                    sb.append("   по - общая справка").append("\r\n");
-                    sb.append("   по ис - справка по команде ИСПОЛЬЗОВАТЬ").append("\r\n");
-                } if (obj.equals("?")) {
-                    // ?
-                    sb.append("Команда: ?").append("\r\n");
-                    sb.append("Выводит подсказки по командам. Например:").append("\r\n");
-                    sb.append("   ? - общая справка").append("\r\n");
-                    sb.append("   ? ис - справка по команде ИСПОЛЬЗОВАТЬ").append("\r\n");
-                } if (obj.startsWith("ск")) {
+                    sb.append("   ис ка -> бросить камень").append("\r\n");
+                } else if (obj.startsWith("ск")) {
                     // ск - сказать
                     sb.append("Команда: сказать").append("\r\n");
                     sb.append("Да, в игре можно говорить :) Например:").append("\r\n");
-                    sb.append("   ска {что-то} - произнести {что-то}").append("\r\n");
-                } if (obj.startsWith("кр")) {
+                    sb.append("   ска {что-то} -> произнести {что-то}").append("\r\n");
+                } else if (obj.startsWith("кр")) {
                     // кр - кричать
                     sb.append("Команда: кричать").append("\r\n");
                     sb.append("В игре можно даже покричать. Попробуйте позвать на помощь :) Например:").append("\r\n");
-                    sb.append("   кри {что-то} - прокричать {что-то}").append("\r\n");
-                } if (obj.startsWith("ме")) {
+                    sb.append("   кри {что-то} -> прокричать {что-то}").append("\r\n");
+                } else if (obj.startsWith("ме")) {
                     // ме - медитация
                     sb.append("Команда: медитация").append("\r\n");
                     sb.append("Эта команда немного восстанавливает стамину за счет ХП. Будьте аккуратны!").append("\r\n");
+                } else if (obj.startsWith("с")) {
+                    // с - север
+                    sb.append("Команда: север").append("\r\n");
+                    sb.append("Двигаться на СЕВЕР, если это возможно.").append("\r\n");
+                } else if (obj.startsWith("ю")) {
+                    // ю - юг
+                    sb.append("Команда: юг").append("\r\n");
+                    sb.append("Двигаться на ЮГ, если это возможно.").append("\r\n");
+                } else if (obj.startsWith("з")) {
+                    // з - запад
+                    sb.append("Команда: запад").append("\r\n");
+                    sb.append("Двигаться на ЗАПАД, если это возможно.").append("\r\n");
+                } else if (obj.startsWith("в")) {
+                    // в - восток
+                    sb.append("Команда: восток").append("\r\n");
+                    sb.append("Двигаться на ВОСТОК, если это возможно.").append("\r\n");
+                } else if (obj.startsWith("по")) {
+                    // по - помощь
+                    sb.append("Команда: помощь").append("\r\n");
+                    sb.append("Выводит подсказки по командам. Например:").append("\r\n");
+                    sb.append("   по -> общая справка").append("\r\n");
+                    sb.append("   по ис -> справка по команде ИСПОЛЬЗОВАТЬ").append("\r\n");
+                } else if (obj.equals("?")) {
+                    // ?
+                    sb.append("Команда: ?").append("\r\n");
+                    sb.append("Выводит подсказки по командам. Например:").append("\r\n");
+                    sb.append("   ? -> общая справка").append("\r\n");
+                    sb.append("   ? ис -> справка по команде ИСПОЛЬЗОВАТЬ").append("\r\n");
                 } else {
                     sb.append("Команда: медитация").append("\r\n");
                     sb.append("А что это за команда? Воспользуйтесь командой ? без параметров: чтобы посмотреть весь список.").append("\r\n");

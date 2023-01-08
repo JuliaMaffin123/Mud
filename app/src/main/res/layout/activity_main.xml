@@ -22,8 +22,8 @@
             android:gravity="bottom"
             android:fontFamily="@font/robotomono"
             android:textColor="@color/white"
-            android:paddingLeft="1dp"
-            android:paddingRight="1dp"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
             />
     </TableRow>
 
@@ -43,7 +43,6 @@
                 android:hint="@string/hint"
                 android:singleLine="true"
                 android:maxLines="1"
-                android:maxLength="15"
                 android:ellipsize="end"
                 android:background="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>

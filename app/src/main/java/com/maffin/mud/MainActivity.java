@@ -1,6 +1,7 @@
 package com.maffin.mud;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatImageButton;
 
 import android.content.Context;
@@ -28,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         // Подключим к активности разметку
         setContentView(R.layout.activity_main);
+        // Отключаем ночную тему
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         // Получим ссылки на элементы разметки
         final TextView textView = findViewById(R.id.textView);

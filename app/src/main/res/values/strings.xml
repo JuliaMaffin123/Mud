@@ -2,6 +2,7 @@
     <string name="app_name">MUD - Беспределье :)</string>
     <string name="action_start">Новая игра</string>
     <string name="action_mute">Вкл/выкл музыку</string>
+    <string name="action_about">О программе</string>
     <string name="hint">Введите действие</string>
     <string name="btnSendDescription">Отправить</string>
     <string name="emptyInput">Введите действие</string>

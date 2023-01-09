@@ -1,9 +1,11 @@
 package com.maffin.mud;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatImageButton;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
@@ -109,6 +111,9 @@ public class MainActivity extends AppCompatActivity {
             mute = !mute;
             // Активируем музыку, если надо
             game.mute(mute);
+        } else if (id == R.id.action_about) {
+            // Показываем версию программы
+            createOneButtonAlertDialog("О программе", "MUD: Запределье :)\r\nВерсия: v." + BuildConfig.VERSION_NAME);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -126,5 +131,26 @@ public class MainActivity extends AppCompatActivity {
         btnSend.setEnabled(true);
         // Сброс состояния и очистка экрана
         game.startGame(textView);
+    }
+
+    private void createOneButtonAlertDialog(String title, String content) {
+        // объект Builder для создания диалогового окна
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        // добавляем различные компоненты в диалоговое окно
+        builder.setTitle(title);
+        builder.setMessage(content);
+        // устанавливаем кнопку, которая отвечает за позитивный ответ
+        builder.setPositiveButton("OK",
+                // устанавливаем слушатель
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+                        // по нажатию ничего не делаем
+                        // Toast.makeText(getApplicationContext(), "Нажали ОК", Toast.LENGTH_LONG).show();
+                    }
+                });
+        // объект Builder создал диалоговое окно и оно готово появиться на экране
+        // вызываем этот метод, чтобы показать AlertDialog на экране пользователя
+        builder.show();
     }
 }

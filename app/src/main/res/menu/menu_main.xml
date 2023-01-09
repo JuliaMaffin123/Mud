@@ -12,6 +12,11 @@
         android:orderInCategory="200"
         android:title="@string/action_mute"
         app:showAsAction="withText" />
+    <item
+        android:id="@+id/action_about"
+        android:orderInCategory="200"
+        android:title="@string/action_about"
+        app:showAsAction="withText" />
 </menu>
 <!--
 Выпадающее меню приложения с двумя элементами:

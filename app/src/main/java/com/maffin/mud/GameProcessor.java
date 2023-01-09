@@ -71,6 +71,7 @@ public class GameProcessor {
         log = -1;                   // Где сейчас бревно
         command = LOOK;             // Текущая команда
         endGame = false;            // Признак завершения игры
+        meditation = 0;             // Число непрерывных медитаций
 
         // Отрисовка приветствия
         tv.setText("");

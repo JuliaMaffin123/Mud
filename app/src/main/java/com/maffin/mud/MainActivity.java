@@ -3,6 +3,7 @@ package com.maffin.mud;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageButton;
 
 import android.content.DialogInterface;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Получим ссылки на элементы разметки
         final TextView textView = findViewById(R.id.textView);
-        final TextInputEditText inpSend = findViewById(R.id.inpSend);
+        final AppCompatEditText inpSend = findViewById(R.id.inpSend);
         final AppCompatImageButton btnSend = findViewById(R.id.btnSend);
 
         // Включаем скролинг в textView
@@ -123,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void startGame() {
         final TextView textView = findViewById(R.id.textView);
-        final TextInputEditText inpSend = findViewById(R.id.inpSend);
+        final AppCompatEditText inpSend = findViewById(R.id.inpSend);
         final AppCompatImageButton btnSend = findViewById(R.id.btnSend);
 
         // Разблокировка управления

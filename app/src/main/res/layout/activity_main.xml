@@ -31,21 +31,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <com.google.android.material.textfield.TextInputLayout
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/inpSend"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="left">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inpSend"
-                android:layout_width="340dp"
-                android:layout_height="match_parent"
-                android:hint="@string/hint"
-                android:singleLine="true"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:background="@color/white" />
-        </com.google.android.material.textfield.TextInputLayout>
+            android:hint="@string/hint"
+            android:layout_weight="4"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:background="@color/white"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btnSend"
@@ -54,7 +52,7 @@
             android:layout_weight="1"
             android:layout_gravity="right"
             android:background="@color/purple_500"
-            android:src="@drawable/ic_send"
+            app:srcCompat="@drawable/ic_send"
             android:padding="10dp"
             android:scaleType="fitXY"
             android:contentDescription="@string/btnSendDescription"/>

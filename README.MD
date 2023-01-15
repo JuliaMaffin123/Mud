@@ -70,4 +70,4 @@ MUD: Запределье :)
 
 ## Пользовательский интерфейс:
 ![Основная активность](assets/main_activity.png "Основная активность")
-![Меню](assets/main_activity.png "Меню")
+![Меню](assets/menu_activity.png "Меню")
